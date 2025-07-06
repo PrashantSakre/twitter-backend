@@ -1,0 +1,11 @@
+{
+  "name": "@libs/auth-middleware",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "scripts": {},
+  "dependencies": {
+    "elysia": "^1.3.5",
+    "jsonwebtoken": "^9.0.2"
+  }
+}

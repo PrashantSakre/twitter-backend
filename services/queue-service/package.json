@@ -1,0 +1,21 @@
+{
+  "name": "queue-service",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "bun test ./test/**.test.ts",
+    "dev": "bun run --watch src/server.ts",
+    "build": "bun build src/server.ts",
+    "start": "bun src/server.ts",
+    "biome:lint": "bunx @biomejs/biome lint ./src ",
+    "biome:format": "bunx @biomejs/biome format --write ./src",
+    "biome:check": "bunx @biomejs/biome check --apply ./src"
+  },
+  "dependencies": {
+    "axios": "^1.10.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "bun-types": "latest"
+  },
+  "module": "src/server.ts"
+}

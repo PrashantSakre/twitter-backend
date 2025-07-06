@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@tweet-core": ["libs/tweet-core"],
+      "@libs/redis/*": ["libs/redis/*"],
+      "@libs/queue/*": ["libs/queue/*"],
+      "@libs/auth-middleware": ["libs/auth-middleware"]
+    }
+  }
+}

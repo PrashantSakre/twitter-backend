@@ -1,0 +1,636 @@
+{
+	"info": {
+		"_postman_id": "34fb2c8a-27da-426b-b617-e8fd9bd73c10",
+		"name": "Twitter-backend",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User-service",
+			"item": [
+				{
+					"name": "Followers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{user-service}}/api/users/:userId/followers",
+							"host": [
+								"{{user-service}}"
+							],
+							"path": [
+								"api",
+								"users",
+								":userId",
+								"followers"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "3850e020-802d-4dbe-a275-afcea27e4156"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{user-service}}/api/users/:userId",
+							"host": [
+								"{{user-service}}"
+							],
+							"path": [
+								"api",
+								"users",
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "3850e020-802d-4dbe-a275-afcea27e4156"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Following",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{user-service}}/api/users/:userId/following",
+							"host": [
+								"{{user-service}}"
+							],
+							"path": [
+								"api",
+								"users",
+								":userId",
+								"following"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "7932aba0-655a-45bd-a673-62674937f769"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Follow",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "userId",
+									"value": "ae303005-de4d-4814-a598-45bd00610c21",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{user-service}}/api/users/follow",
+							"host": [
+								"{{user-service}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"follow"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Profile update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Vivet",
+									"type": "default"
+								},
+								{
+									"key": "avtarUrl",
+									"value": "http://localhost:3000/public/twitter.png",
+									"type": "default"
+								},
+								{
+									"key": "bio",
+									"value": "I am a developer 2",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{user-service}}/api/users/me",
+							"host": [
+								"{{user-service}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Unfollow",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "userId",
+									"value": "ae303005-de4d-4814-a598-45bd00610c21",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{user-service}}/api/users/unfollow",
+							"host": [
+								"{{user-service}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"unfollow"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth-service",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "vivek@gmail.com",
+									"type": "default"
+								},
+								{
+									"key": "password",
+									"value": "testing",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{auth-service}}/api/auth/register",
+							"host": [
+								"{{auth-service}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Set token\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    // pm.expect(jsonData.token).to.eql(100);",
+									"    pm.environment.set(\"token\", jsonData.token);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "prashant@gmail.com",
+									"type": "default"
+								},
+								{
+									"key": "password",
+									"value": "testing",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{auth-service}}/api/auth/login",
+							"host": [
+								"{{auth-service}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tweet-service",
+			"item": [
+				{
+					"name": "Tweet",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "content",
+									"value": "This is a 7th tweet",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{tweet-service}}/api/tweets",
+							"host": [
+								"{{tweet-service}}"
+							],
+							"path": [
+								"api",
+								"tweets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Tweet By ID",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{tweet-service}}/api/tweets/:id",
+							"host": [
+								"{{tweet-service}}"
+							],
+							"path": [
+								"api",
+								"tweets",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "ddb86bb3-6a43-49c3-8ec5-5e3c53b52313"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get tweets by User",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{tweet-service}}/api/users/:userId/tweets",
+							"host": [
+								"{{tweet-service}}"
+							],
+							"path": [
+								"api",
+								"users",
+								":userId",
+								"tweets"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "7932aba0-655a-45bd-a673-62674937f769"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Timeline service",
+			"item": [
+				{
+					"name": "Get Timeline",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{timeline-service}}/api/timeline",
+							"host": [
+								"{{timeline-service}}"
+							],
+							"path": [
+								"api",
+								"timeline"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Like-service",
+			"item": [
+				{
+					"name": "Like",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{like-service}}/api/tweets/:id/like",
+							"host": [
+								"{{like-service}}"
+							],
+							"path": [
+								"api",
+								"tweets",
+								":id",
+								"like"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "a5d7e13c-6929-43fe-b90f-2185af745947"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Likes Count",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{like-service}}/api/tweets/:id/likes",
+							"host": [
+								"{{like-service}}"
+							],
+							"path": [
+								"api",
+								"tweets",
+								":id",
+								"likes"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "a5d7e13c-6929-43fe-b90f-2185af745947"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete like",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{like-service}}/api/tweets/:id/like",
+							"host": [
+								"{{like-service}}"
+							],
+							"path": [
+								"api",
+								"tweets",
+								":id",
+								"like"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "a5d7e13c-6929-43fe-b90f-2185af745947"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Notification-service",
+			"item": [
+				{
+					"name": "Notify ( Internal Use)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "userId",
+									"value": "",
+									"type": "default",
+									"disabled": true
+								},
+								{
+									"key": "type",
+									"value": "",
+									"type": "default",
+									"disabled": true
+								},
+								{
+									"key": "data",
+									"value": "",
+									"type": "default",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{notification-service}}/api/notifications",
+							"host": [
+								"{{notification-service}}"
+							],
+							"path": [
+								"api",
+								"notifications"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Notifications",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{notification-service}}/api/notifications",
+							"host": [
+								"{{notification-service}}"
+							],
+							"path": [
+								"api",
+								"notifications"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

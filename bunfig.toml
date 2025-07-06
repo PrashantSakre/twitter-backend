@@ -1,0 +1,10 @@
+[install]
+external = [
+    "@tweet-core",
+    "@libs/redis",
+    "@libs/redis/*",
+    "@libs/queue",
+    "@libs/queue/*",
+    "@tweet-core",
+    "@libs/auth-middleware",
+]
