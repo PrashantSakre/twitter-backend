@@ -403,6 +403,111 @@
 			]
 		},
 		{
+			"name": "Reply-service",
+			"item": [
+				{
+					"name": "Reply",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "content",
+									"value": "This is a 1th reply af",
+									"type": "default"
+								},
+								{
+									"key": "tweetId",
+									"value": "ef39b404-02fd-4108-99bd-e5c4275702af",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{reply-service}}/api/replies",
+							"host": [
+								"{{reply-service}}"
+							],
+							"path": [
+								"api",
+								"replies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Replies By Tweet ID",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{reply-service}}/api/tweets/:tweetId/replies",
+							"host": [
+								"{{reply-service}}"
+							],
+							"path": [
+								"api",
+								"tweets",
+								":tweetId",
+								"replies"
+							],
+							"variable": [
+								{
+									"key": "tweetId",
+									"value": "ef39b404-02fd-4108-99bd-e5c4275702af"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Reply By ID",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{reply-service}}/api/replies/:replyId",
+							"host": [
+								"{{reply-service}}"
+							],
+							"path": [
+								"api",
+								"replies",
+								":replyId"
+							],
+							"variable": [
+								{
+									"key": "replyId",
+									"value": "ec4fca04-03c2-41eb-9b6a-e23cf283a28b"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Timeline service",
 			"item": [
 				{
