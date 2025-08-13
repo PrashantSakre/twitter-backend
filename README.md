@@ -14,6 +14,7 @@
 | `timeline-service`    | 3004   | Shows user feed and discover tweets   |
 | `like-service`        | 3005   | Likes/unlikes, like counts            |
 | `notification-service`| 3006   | Sends notifications for likes/follows |
+| `reply-service`       | 3007   | Reply for the tweets                  |
 | `queue-service`       | -      | Handles fanout via BullMQ             |
 
 
@@ -35,6 +36,7 @@ root/
 ├── like-service/
 ├── timeline-service/
 ├── queue-service/
+├── reply-service/
 └── notification-service/
 ```
 
@@ -81,7 +83,6 @@ root/
 
 ## 🔜 Coming Services
 
-- `reply-service`: Tweet comments + threading
 - `media-service`: File uploads for tweets/avatars
 - `search-service`: Full-text search using MeiliSearch
 - `rate-limit-service`: Global throttling via Redis
