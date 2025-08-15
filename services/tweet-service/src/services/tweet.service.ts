@@ -1,9 +1,18 @@
 import { prisma } from "../config/db";
+import { publishTweetIndexJob } from "../queues/search.publisher";
 
 export const createTweet = async (authorId: string, content: string) => {
-	return prisma.tweet.create({
+	const tweet = await prisma.tweet.create({
 		data: { authorId, content },
 	});
+
+	await publishTweetIndexJob({
+		id: tweet.id,
+		authorId: tweet.authorId,
+		content: tweet.content,
+		createdAt: tweet.createdAt.toISOString(),
+	});
+	return tweet;
 };
 
 export const getTweetById = async (id: string) => {

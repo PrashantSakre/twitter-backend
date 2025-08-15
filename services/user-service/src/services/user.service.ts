@@ -1,4 +1,5 @@
 import { prisma } from "../config/db";
+import { publishUserIndexJob } from "../queues/search.publisher";
 
 export const getUserById = async (id: string) => {
 	return prisma.user.findUnique({
@@ -53,9 +54,12 @@ export const createOrUpdateUserProfile = async (
 	userId: string,
 	data: { name?: string; bio?: string; avatarUrl?: string },
 ) => {
-	return prisma.user.upsert({
+	const userSave = await prisma.user.upsert({
 		where: { id: userId },
-		update: {},
+		update: {
+			bio: data.bio,
+			avatarUrl: data.avatarUrl,
+		},
 		create: {
 			id: userId,
 			name: data.name,
@@ -63,4 +67,12 @@ export const createOrUpdateUserProfile = async (
 			avatarUrl: data.avatarUrl,
 		},
 	});
+
+	await publishUserIndexJob({
+		id: userSave.id,
+		name: userSave.name ?? "",
+		bio: userSave.bio ?? "",
+		avatarUrl: userSave.avatarUrl ?? "",
+	});
+	return userSave;
 };

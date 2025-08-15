@@ -148,13 +148,13 @@
 									"type": "default"
 								},
 								{
-									"key": "avtarUrl",
+									"key": "avatarUrl",
 									"value": "http://localhost:3000/public/twitter.png",
 									"type": "default"
 								},
 								{
 									"key": "bio",
-									"value": "I am a developer 2",
+									"value": "I am a developer 2 test user update search",
 									"type": "default"
 								}
 							]
@@ -325,7 +325,7 @@
 							"formdata": [
 								{
 									"key": "content",
-									"value": "This is a 7th tweet",
+									"value": "where has tablename is a field in pg_indexes ,you an get an accurate indices by matching user defined table at 'your_table_name' at WHERE clause . This will give you the desired details.",
 									"type": "default"
 								}
 							]
@@ -730,6 +730,120 @@
 							"path": [
 								"api",
 								"notifications"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Upload service",
+			"item": [
+				{
+					"name": "media upload",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/Users/prashantsakre/Downloads/ChatGPT Image Jun 28, 2025 at 05_19_35 PM.jpeg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{upload-service}}/api/upload",
+							"host": [
+								"{{upload-service}}"
+							],
+							"path": [
+								"api",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Search-service",
+			"item": [
+				{
+					"name": "Search Tweets",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{search-service}}/api/search/tweets?q=defined&limit=20&offset=0",
+							"host": [
+								"{{search-service}}"
+							],
+							"path": [
+								"api",
+								"search",
+								"tweets"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "defined"
+								},
+								{
+									"key": "limit",
+									"value": "20"
+								},
+								{
+									"key": "offset",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{search-service}}/api/search/users?q=Prashant&limit=20&offset=0",
+							"host": [
+								"{{search-service}}"
+							],
+							"path": [
+								"api",
+								"search",
+								"users"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "Prashant"
+								},
+								{
+									"key": "limit",
+									"value": "20"
+								},
+								{
+									"key": "offset",
+									"value": "0"
+								}
 							]
 						}
 					},
