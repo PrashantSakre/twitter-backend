@@ -1,6 +1,6 @@
 # 🐦 Twitter Clone - Microservices Architecture
 
-> A scalable, modular Twitter-like backend built with ElysiaJS, Bun, Redis, PostgreSQL, JWT, and BullMQ.
+> A scalable, modular Twitter-like backend built with ElysiaJS, Bun, Redis, PostgreSQL, JWT, meilisearch and BullMQ.
 
 ---
 
@@ -16,6 +16,7 @@
 | `notification-service`| 3006   | Sends notifications for likes/follows |
 | `reply-service`       | 3007   | Reply for the tweets                  |
 | `search-service`      | 3009   | Search for tweets and users           |
+| `meilisearch-service` | 3010   | MeiliSearch for tweets and users      |
 | `queue-service`       | -      | Handles fanout via BullMQ             |
 
 
@@ -39,6 +40,7 @@ root/
 ├── queue-service/
 ├── reply-service/
 ├── search-service/
+├── meilisearch-service/
 └── notification-service/
 ```
 
@@ -61,6 +63,7 @@ root/
 - **DB:** PostgreSQL via [Prisma](https://www.prisma.io)
 - **Cache / Feed:** Redis
 - **Queue:** [BullMQ](https://bullmq.io)
+- **meilisearch** [meilisearch](https://www.meilisearch.com/)
 
 
 ---
@@ -86,7 +89,6 @@ root/
 ## 🔜 Coming Services
 
 - `media-service`: File uploads for tweets/avatars
-- `search-service`: Add new Full-text search using MeiliSearch
 - `rate-limit-service`: Global throttling via Redis
 
 ---
@@ -95,7 +97,7 @@ root/
 - Redis keys follow `feed:<userId>`, `tweet:<id>:likes`
 - Notification data stored as JSON objects in `notifications:<userId>`
 - Service URLs configured via environment variables
-
+- Meilisearch integration for searching tweets and users lightning fast.
 
 ---
 
