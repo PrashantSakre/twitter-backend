@@ -8,7 +8,8 @@
 		"start": "bun src/server.ts",
 		"biome:lint": "bunx @biomejs/biome lint ./src ",
 		"biome:format": "bunx @biomejs/biome format --write ./src",
-		"biome:check": "bunx @biomejs/biome check --write ./src"
+		"biome:check": "bunx @biomejs/biome check --write ./src",
+		"meili:sync": "bun run src/sync/backfill.ts"
 	},
 	"dependencies": {
 		"@elysiajs/static": "^0.8.1",
