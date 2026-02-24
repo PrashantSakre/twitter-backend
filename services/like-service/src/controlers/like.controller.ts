@@ -17,7 +17,7 @@ export const likeContrller = new Elysia()
     return { user: payload };
   })
   // Like a tweet
-  .post("/tweets/:id/like", async ({ params: { id }, user, set }) => {
+  .post("/likes/tweets/:id", async ({ params: { id }, user, set }) => {
     try {
       await redis.sadd(`tweet:${id}:likes`, user.userId);
 
@@ -52,7 +52,7 @@ export const likeContrller = new Elysia()
     }
   })
   // Unlike a tweet
-  .delete("/tweets/:id/like", async ({ params: { id }, user, set }) => {
+  .delete("/likes/tweets/:id", async ({ params: { id }, user, set }) => {
     try {
       await redis.srem(`tweet:${id}:likes`, user.userId);
       return { message: "Unliked" };
@@ -62,7 +62,7 @@ export const likeContrller = new Elysia()
     }
   })
   // Get like count
-  .get("/tweets/:id/likes", async ({ params: { id }, set }) => {
+  .get("/likes/tweets/:id", async ({ params: { id }, set }) => {
     try {
       const count = await redis.scard(`tweet:${id}:likes`);
       return { count };

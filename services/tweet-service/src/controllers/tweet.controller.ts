@@ -22,7 +22,7 @@ export const tweetController = new Elysia()
 			return { error: (e as Error).message };
 		}
 	})
-	.get("/users/:userId/tweets", async ({ params: { userId }, set }) => {
+	.get("/tweets/users/:userId", async ({ params: { userId }, set }) => {
 		try {
 			return await getTweetsByUser(userId);
 		} catch (e) {
