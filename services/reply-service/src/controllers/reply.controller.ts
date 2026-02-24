@@ -8,7 +8,7 @@ import {
 } from "../services/tweet.service";
 
 export const replyController = new Elysia()
-	.get("/tweets/:tweetId/replies", async ({ params: { tweetId }, set }) => {
+	.get("/replies/tweets/:tweetId", async ({ params: { tweetId }, set }) => {
 		try {
 			const reply = await getRepliesByTweetId(tweetId);
 			if (!reply) {
