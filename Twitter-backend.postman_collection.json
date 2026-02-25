@@ -325,7 +325,7 @@
 							"formdata": [
 								{
 									"key": "content",
-									"value": "where has tablename is a field in pg_indexes ,you an get an accurate indices by matching user defined table at 'your_table_name' at WHERE clause . This will give you the desired details.",
+									"value": "A scalable, modular Twitter-like backend built with ElysiaJS, Bun, Redis,",
 									"type": "default"
 								}
 							]
@@ -380,15 +380,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{tweet-service}}/api/users/:userId/tweets",
+							"raw": "{{tweet-service}}/api/tweets/users/:userId",
 							"host": [
 								"{{tweet-service}}"
 							],
 							"path": [
 								"api",
+								"tweets",
 								"users",
-								":userId",
-								"tweets"
+								":userId"
 							],
 							"variable": [
 								{
@@ -457,15 +457,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{reply-service}}/api/tweets/:tweetId/replies",
+							"raw": "{{reply-service}}/api/replies/tweets/:tweetId",
 							"host": [
 								"{{reply-service}}"
 							],
 							"path": [
 								"api",
+								"replies",
 								"tweets",
-								":tweetId",
-								"replies"
+								":tweetId"
 							],
 							"variable": [
 								{
@@ -559,15 +559,15 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "{{like-service}}/api/tweets/:id/like",
+							"raw": "{{like-service}}/api/likes/tweets/:id",
 							"host": [
 								"{{like-service}}"
 							],
 							"path": [
 								"api",
+								"likes",
 								"tweets",
-								":id",
-								"like"
+								":id"
 							],
 							"variable": [
 								{
@@ -595,15 +595,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{like-service}}/api/tweets/:id/likes",
+							"raw": "{{like-service}}/api/likes/tweets/:id",
 							"host": [
 								"{{like-service}}"
 							],
 							"path": [
 								"api",
+								"likes",
 								"tweets",
-								":id",
-								"likes"
+								":id"
 							],
 							"variable": [
 								{
@@ -631,15 +631,15 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{like-service}}/api/tweets/:id/like",
+							"raw": "{{like-service}}/api/likes/tweets/:id",
 							"host": [
 								"{{like-service}}"
 							],
 							"path": [
 								"api",
+								"likes",
 								"tweets",
-								":id",
-								"like"
+								":id"
 							],
 							"variable": [
 								{
@@ -761,7 +761,7 @@
 								{
 									"key": "file",
 									"type": "file",
-									"src": "/Users/prashantsakre/Downloads/ChatGPT Image Jun 28, 2025 at 05_19_35 PM.jpeg"
+									"src": "/Users/prashantsakre/Downloads/channels4_profile.jpg"
 								}
 							]
 						},
@@ -789,7 +789,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{search-service}}/api/search/tweets?q=defined&limit=20&offset=0",
+							"raw": "{{search-service}}/api/search/tweets?q=jsonlines&limit=20&offset=0",
 							"host": [
 								"{{search-service}}"
 							],
@@ -801,7 +801,7 @@
 							"query": [
 								{
 									"key": "q",
-									"value": "defined"
+									"value": "jsonlines"
 								},
 								{
 									"key": "limit",
@@ -829,6 +829,77 @@
 							"path": [
 								"api",
 								"search",
+								"users"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "Prashant"
+								},
+								{
+									"key": "limit",
+									"value": "20"
+								},
+								{
+									"key": "offset",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Search-service-meilisearch",
+			"item": [
+				{
+					"name": "Search Tweets",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{search-service-meilisearch}}/api/meilisearch/tweets?q=fourth&limit=20&offset=0",
+							"host": [
+								"{{search-service-meilisearch}}"
+							],
+							"path": [
+								"api",
+								"meilisearch",
+								"tweets"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "fourth"
+								},
+								{
+									"key": "limit",
+									"value": "20"
+								},
+								{
+									"key": "offset",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{search-service-meilisearch}}/api/meilisearch/users?q=Prashant&limit=20&offset=0",
+							"host": [
+								"{{search-service-meilisearch}}"
+							],
+							"path": [
+								"api",
+								"meilisearch",
 								"users"
 							],
 							"query": [
