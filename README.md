@@ -18,6 +18,7 @@
 | `search-service`      | 3009   | Search for tweets and users           |
 | `meilisearch-service` | 3010   | MeiliSearch for tweets and users      |
 | `queue-service`       | -      | Handles fanout via BullMQ             |
+| `api-gateway-service` | 4000   | API - Global Gateway                  |
 
 
 ---
@@ -32,6 +33,7 @@ root/
 │   ├── queue.ts
 │   └── tweet-core/           # Shared logic for tweet validation
 │
+├── global-api-gateway-service/
 ├── auth-service/
 ├── user-service/
 ├── tweet-service/
@@ -89,7 +91,6 @@ root/
 ## 🔜 Coming Services
 
 - `media-service`: File uploads for tweets/avatars
-- `rate-limit-service`: Global throttling via Redis
 
 ---
 
@@ -98,6 +99,7 @@ root/
 - Notification data stored as JSON objects in `notifications:<userId>`
 - Service URLs configured via environment variables
 - Meilisearch integration for searching tweets and users lightning fast.
+- rate-limit-service Global throttling
 
 ---
 
