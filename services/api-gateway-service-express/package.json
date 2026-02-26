@@ -1,0 +1,21 @@
+{
+  "name": "api-gateway-service-express",
+  "module": "scr/server.ts",
+  "type": "module",
+  "scripts": {
+    "dev": "bun --watch scr/server.ts",
+    "start": "bun scr/server.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "express": "^5.2.1",
+    "express-rate-limit": "^8.2.1",
+    "http-proxy-middleware": "^3.0.5",
+    "morgan": "^1.10.1"
+  }
+}
