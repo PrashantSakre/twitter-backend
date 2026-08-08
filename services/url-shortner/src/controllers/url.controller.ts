@@ -34,12 +34,22 @@ const urlController = new Elysia({ prefix: "/url" })
 			}
 
 			const { url } = body;
+			try {
+				const urlTest = new URL(url);
+				console.log(urlTest);
+			} catch {
+				set.status = 400;
+				return { error: "Invalid URL." };
+			}
 
 			try {
+				const expiryHours = Number(process.env.EXPIRY_HOURS || 24);
+				const expiresAt = new Date(Date.now() + expiryHours * 60 * 60 * 1000);
+
 				const short_url = await service.create({
 					short_code: code(),
 					original_url: url,
-					expires_at: new Date(),
+					expires_at: expiresAt,
 				});
 
 				return short_url;

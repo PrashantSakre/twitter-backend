@@ -4,6 +4,7 @@ import { logger } from "@grotto/logysia";
 import { Elysia } from "elysia";
 import { cassandraClient } from "./config/cassandra";
 import { prisma } from "./config/prisma";
+import { redisClient } from "./config/redis";
 import { redirectController } from "./controllers/redirect.controller";
 import { url } from "./controllers/url.controller";
 
@@ -35,6 +36,7 @@ async function gracefulShutdown() {
 		// Disconnect from Databases
 		await prisma.$disconnect();
 		await cassandraClient.shutdown();
+		await redisClient.quit();
 		console.log("Database disconnected.");
 
 		process.exit(0);

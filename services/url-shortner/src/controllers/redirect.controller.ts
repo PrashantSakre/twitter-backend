@@ -12,6 +12,9 @@ export const redirectController = new Elysia().get(
 				set.status = 404;
 				return { error: "URL not found." };
 			}
+			if (url.expires_at && new Date(url.expires_at) < new Date()) {
+				return { error: "URL expired." };
+			}
 			set.status = 302;
 			console.log(url);
 			redirect(url.original_url, 302);
