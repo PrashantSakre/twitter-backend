@@ -35,8 +35,19 @@ const urlController = new Elysia({ prefix: "/url" })
 
 			const { url } = body;
 			try {
-				const urlTest = new URL(url);
-				console.log(urlTest);
+				const parsedUrl = new URL(url);
+				const hostname = parsedUrl.hostname;
+
+				if (
+					hostname === "localhost" ||
+					hostname.startsWith("127.")
+				) {
+					return { error: "Local addresses not allowed" };
+				}
+				if (!["http:", "https:"].includes(parsedUrl.protocol)) {
+					set.status = 400;
+					return { error: "Only HTTP and HTTPS URLs are allowed." };
+				}
 			} catch {
 				set.status = 400;
 				return { error: "Invalid URL." };
