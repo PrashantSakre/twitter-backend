@@ -12,13 +12,37 @@ async function startCassandra() {
 	await cassandraClient.connect();
 	console.log("Successfully connected to Apache Cassandra!");
 
-	// Create a Table
-	await cassandraClient.execute(`
+	const createTableClicks = `
     CREATE TABLE IF NOT EXISTS url_shortener.short_url_clicks (
       short_code text PRIMARY KEY,
       clicks counter
-    );
-  `);
+    );`;
+	const createTableDailyClicksQuery = `
+    CREATE TABLE IF NOT EXISTS url_shortener.short_url_daily_clicks (
+      short_code text,
+      day date,
+      clicks counter,
+      PRIMARY KEY (short_code, day)
+    );`;
+	const createTableCountryClicksQuery = `
+    CREATE TABLE IF NOT EXISTS url_shortener.short_url_country_clicks (
+      short_code text,
+      country text,
+      clicks counter,
+      PRIMARY KEY (short_code, country)
+    );`;
+	const createTableDeviceClicksQuery = `
+    CREATE TABLE IF NOT EXISTS url_shortener.short_url_device_clicks (
+      short_code text,
+      device text,
+      clicks counter,
+      PRIMARY KEY (short_code, device)
+    );`;
+	// Create a Table
+	await cassandraClient.execute(createTableClicks);
+	await cassandraClient.execute(createTableDailyClicksQuery);
+	await cassandraClient.execute(createTableCountryClicksQuery);
+	await cassandraClient.execute(createTableDeviceClicksQuery);
 }
 startCassandra();
 
