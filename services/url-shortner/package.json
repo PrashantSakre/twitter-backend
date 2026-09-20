@@ -25,6 +25,7 @@
     "jsonwebtoken": "^9.0.3",
     "nanoid": "^6.0.1",
     "prisma": "^5.22.0",
+    "qrcode": "^1.5.4",
     "redis": "^6.2.0"
   },
   "devDependencies": {
