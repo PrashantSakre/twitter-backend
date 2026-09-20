@@ -26,11 +26,11 @@ export class ShortUrlService {
 		return url;
 	}
 
-	async redirect(short_code: string) {
+	async redirect(short_code: string, country: string, device: string) {
 		const cached = await this.cache.get(short_code);
 
 		if (cached) {
-			this.analyticsRepo.incrementClicks(short_code).catch(console.error);
+			this.fireAnalytics(short_code, country, device);
 			return cached;
 		}
 		const url = await this.shortRepo.findByCode(short_code);
@@ -41,22 +41,45 @@ export class ShortUrlService {
 		await this.cache.set(short_code, url);
 
 		// Fire and forget
-		this.analyticsRepo.incrementClicks(short_code).catch(console.error);
+		this.fireAnalytics(short_code, country, device);
 
 		return url;
 	}
 
+	fireAnalytics(short_code: string, country: string, device: string) {
+		const today = new Date().toISOString().slice(0, 10);
+		this.analyticsRepo.incrementClicks(short_code).catch(console.error);
+		this.analyticsRepo
+			.incrementDailyClicks(short_code, today)
+			.catch(console.error);
+		this.analyticsRepo
+			.incrementCountryClicks(short_code, country)
+			.catch(console.error);
+		this.analyticsRepo
+			.incrementDeviceClicks(short_code, device)
+			.catch(console.error);
+		this.analyticsRepo.incrementClicks(short_code).catch(console.error);
+	}
+
 	async stats(short_code: string) {
-		const [url, clicks] = await Promise.all([
+		const [url, totalClicks, today, countries, devices] = await Promise.all([
 			this.shortRepo.findByCode(short_code),
 			this.analyticsRepo.getClicks(short_code),
+			this.analyticsRepo.getDailyClicks(
+				short_code,
+				new Date().toISOString().slice(0, 10),
+			),
+			this.analyticsRepo.getCountryClicks(short_code),
+			this.analyticsRepo.getDeviceClicks(short_code),
 		]);
-
 		if (!url) return null;
 
 		return {
 			...url,
-			clicks,
+			totalClicks,
+			today,
+			countries,
+			devices,
 		};
 	}
 }
