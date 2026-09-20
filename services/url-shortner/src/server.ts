@@ -7,6 +7,7 @@ import { prisma } from "./config/prisma";
 import { redisClient } from "./config/redis";
 import { redirectController } from "./controllers/redirect.controller";
 import { url } from "./controllers/url.controller";
+import { analyticsController } from "./controllers/analytics.controller";
 
 export const app = new Elysia();
 
@@ -15,7 +16,7 @@ app
 	.use(logger())
 	.use(swagger())
 	.get("/", () => "URL Shortner service is up.")
-	.group("/api", (app) => app.use(url))
+	.group("/api", (app) => app.use(url).use(analyticsController))
 	.group("", (app) => app.use(redirectController))
 	.listen(process.env.PORT || 3000, () =>
 		console.log(

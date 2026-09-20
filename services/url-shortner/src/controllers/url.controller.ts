@@ -1,10 +1,33 @@
 import Elysia, { t } from "elysia";
+import QRCode from 'qrcode';
 import { ShortUrlService } from "../services/shortUrl.service";
 import { code } from "../utils/genUniqueCode";
 
 const service = new ShortUrlService();
 
 const urlController = new Elysia({ prefix: "/url" })
+	.get(
+		"/:code/qrcode",
+		async ({ params: { code }, set }) => {
+			try {
+				const url = await service.getUrlByShortCode(code);
+				if (!url) {
+					return { message: "No records found." };
+				}
+
+				const dataUrl = await QRCode.toDataURL(url.original_url);
+				return dataUrl;
+			} catch (e) {
+				set.status = 400;
+				return { error: (e as Error).message };
+			}
+		},
+		{
+			params: t.Object({
+				code: t.String(),
+			}),
+		},
+	)
 	.get(
 		"/:code",
 		async ({ params: { code }, set }) => {
@@ -35,8 +58,19 @@ const urlController = new Elysia({ prefix: "/url" })
 
 			const { url } = body;
 			try {
-				const urlTest = new URL(url);
-				console.log(urlTest);
+				const parsedUrl = new URL(url);
+				const hostname = parsedUrl.hostname;
+
+				if (
+					hostname === "localhost" ||
+					hostname.startsWith("127.")
+				) {
+					return { error: "Local addresses not allowed" };
+				}
+				if (!["http:", "https:"].includes(parsedUrl.protocol)) {
+					set.status = 400;
+					return { error: "Only HTTP and HTTPS URLs are allowed." };
+				}
 			} catch {
 				set.status = 400;
 				return { error: "Invalid URL." };
