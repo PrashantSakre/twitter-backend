@@ -5,9 +5,9 @@ import { Elysia } from "elysia";
 import { cassandraClient } from "./config/cassandra";
 import { prisma } from "./config/prisma";
 import { redisClient } from "./config/redis";
+import { analyticsController } from "./controllers/analytics.controller";
 import { redirectController } from "./controllers/redirect.controller";
 import { url } from "./controllers/url.controller";
-import { analyticsController } from "./controllers/analytics.controller";
 
 export const app = new Elysia();
 

@@ -5,9 +5,13 @@ const service = new ShortUrlService();
 
 export const redirectController = new Elysia().get(
 	"/:code",
-	async ({ params: { code }, set, redirect }) => {
+	async ({ params: { code }, set, redirect, request }) => {
 		try {
-			const url = await service.redirect(code);
+			const country = request.headers.get("cf-ipcountry") ?? "UNKNOWN";
+			const ua = request.headers.get("user-agent") ?? "";
+			const device = /mobile/i.test(ua) ? "mobile" : "desktop";
+
+			const url = await service.redirect(code, country, device);
 			if (!url) {
 				set.status = 404;
 				return { error: "URL not found." };
@@ -16,7 +20,7 @@ export const redirectController = new Elysia().get(
 				set.status = 410;
 				return { error: "URL expired." };
 			}
-			
+
 			console.log(url);
 			redirect(url.original_url, 302);
 		} catch (e) {

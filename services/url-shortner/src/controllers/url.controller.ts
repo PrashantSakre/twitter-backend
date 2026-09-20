@@ -1,5 +1,5 @@
 import Elysia, { t } from "elysia";
-import QRCode from 'qrcode';
+import QRCode from "qrcode";
 import { ShortUrlService } from "../services/shortUrl.service";
 import { code } from "../utils/genUniqueCode";
 
@@ -61,10 +61,7 @@ const urlController = new Elysia({ prefix: "/url" })
 				const parsedUrl = new URL(url);
 				const hostname = parsedUrl.hostname;
 
-				if (
-					hostname === "localhost" ||
-					hostname.startsWith("127.")
-				) {
+				if (hostname === "localhost" || hostname.startsWith("127.")) {
 					return { error: "Local addresses not allowed" };
 				}
 				if (!["http:", "https:"].includes(parsedUrl.protocol)) {
